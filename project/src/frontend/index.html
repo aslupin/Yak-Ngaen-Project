@@ -1,0 +1,200 @@
+<html>
+  <head>
+    <title>Practicum Project</title>
+    <link href="./bg.css" rel="stylesheet" />
+    <link href="./animate.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      body {
+        overflow: hidden;
+      }
+      #img {
+        width: 88%;
+        height: 400px;
+      }
+      .bg {
+        position: absolute;
+        z-index: -1;
+        background-image: url("img/bg.png");
+        background-size: 100% 100%;
+        background-position: top center;
+        opacity: 0.09;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Design -->
+    <!-- Grid BG -->
+    <div class="bg" style="width:100%; height: 100%;"></div>
+    <!-- Map BG -->
+    <div class="slides-box">
+      <div class="image">
+        <img id="img" src="./img/m1.png" class="animated tada" />
+      </div>
+      <a class="prev" onclick="prevImage()">&#10094;</a>
+      <a class="next" onclick="nextImage()">&#10095;</a>
+    </div>
+    <br />
+    <!-- Car => Player -->
+
+    <img
+      id="playerI"
+      class="animated rubberBand"
+      src="img/c1.png"
+      width="150px"
+      height="150px"
+      onclick="nextImageCarI()"
+    />
+    <div style="padding-top:0px;"></div>
+    <img
+      id="playerII"
+      class="animated rubberBand"
+      src="img/c2.png"
+      width="150px"
+      height="150px"
+      onclick="nextImageCarII()"
+    />
+
+    <!-- Optional JavaScript Pure-->
+    <script src="./bg_selected.js"></script>
+    <script src="./car_player_i.js"></script>
+    <script src="./car_player_ii.js"></script>
+    <!-- Optional JavaScript Import-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script> -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      // Initial Value
+      var myCarPlayerI = "#playerI";
+      var myCarPlayerII = "#playerII";
+      var analogValueI = 0;
+      var analogValueII = 0;
+      var isFinishI = false;
+      var isFinishII = false;
+      var myGoal = 1440 * (90 / 100);
+      // Setting fomular
+      var disvalueI = 100;
+      var disvalueII = 112;
+      var walkPixel = 1;
+
+      let initFindDisValue = () => {
+        var meanI = 0;
+        var meanII = 0;
+        var timeI = 0;
+        var timeII = 0;
+        var getDisValueI = setInterval(function() {
+          timeI += 1;
+          if (timeI == 10) {
+            disvalueI = meanI / 9;
+            isFinishI = true;
+            console.log("disI", disvalueI, meanI);
+            clearInterval(getDisValueI);
+          }
+
+          $.ajax({
+            type: "GET",
+            url: `http://localhost:5000/playeri`,
+            dataType: "text",
+            success: function(res) {
+              meanI += parseInt(res, 10);
+            },
+            fail: function(res) {
+              console.log(response);
+            }
+          });
+        }, 400);
+
+        var getDisValueII = setInterval(function() {
+          timeII += 1;
+          if (timeII == 10) {
+            disvalueII = meanII / 9;
+            isFinishII = true;
+            console.log("disII", disvalueII, meanII);
+            // START HERE
+            playGame();
+            clearInterval(getDisValueII);
+          }
+          $.ajax({
+            type: "GET",
+            url: `http://localhost:5000/playerii`,
+            dataType: "text",
+            success: function(res) {
+              meanII += parseInt(res, 10);
+            },
+            fail: function(res) {
+              console.log(response);
+            }
+          });
+        }, 400);
+      };
+
+      let playGame = () => {
+        var sprintPlayerI = setInterval(function() {
+          $.ajax({
+            type: "GET",
+            url: `http://localhost:5000/playeri`,
+            dataType: "text",
+            success: function(res) {
+              analogValueI +=
+                Math.abs(parseInt(res, 10) - disvalueI) / walkPixel;
+              console.log("player 1 ", analogValueI, res);
+              $(myCarPlayerI).css("margin-left", Number(analogValueI) + "px");
+              if (analogValueI >= myGoal) {
+                alert("Player 1 winner.");
+              }
+            },
+            fail: function(res) {
+              console.log(response);
+            }
+          });
+        }, 800);
+
+        var sprintPlayerII = setInterval(function() {
+          $.ajax({
+            type: "GET",
+            url: `http://localhost:5000/playerii`,
+            dataType: "text",
+            success: function(res) {
+              analogValueII +=
+                Math.abs(parseInt(res, 10) - disvalueII) / walkPixel;
+              console.log("player 2 ", analogValueII, res);
+              $(myCarPlayerII).css("margin-left", Number(analogValueII) + "px");
+              if (analogValueII >= myGoal) {
+                alert("Player 2 winner.");
+              }
+            },
+            fail: function(res) {
+              console.log(response);
+            }
+          });
+        }, 800);
+      };
+
+      function rdStartGame() {
+        initFindDisValue();
+      }
+
+      initFindDisValue();
+    </script>
+  </body>
+</html>
