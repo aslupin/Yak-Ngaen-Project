@@ -1,70 +1,128 @@
 <html>
   <head>
     <title>Practicum Project</title>
-    <link href="./bg.css" rel="stylesheet" />
-    <link href="./animate.css" rel="stylesheet" />
+    <!-- Css pure -->
+    <link href="./css/map.css" rel="stylesheet" />
+    <link href="./css/bg.css" rel="stylesheet" />
+    <link href="./css/animate.css" rel="stylesheet" />
+    <link href="./css/hover.css" rel="stylesheet" />
+    <link href="./css/home.css" rel="stylesheet" />
+    <link href="./css/counting.css" rel="stylesheet" />
+    <link href="./css/winner.css" rel="stylesheet" />
+    <link href="./css/cheer.css" rel="stylesheet" />
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <style>
-      body {
-        overflow: hidden;
-      }
-      #img {
-        width: 88%;
-        height: 400px;
-      }
-      .bg {
-        position: absolute;
-        z-index: -1;
-        background-image: url("img/bg.png");
-        background-size: 100% 100%;
-        background-position: top center;
-        opacity: 0.09;
-      }
-    </style>
   </head>
 
   <body>
     <!-- Design -->
     <!-- Grid BG -->
+
     <div class="bg" style="width:100%; height: 100%;"></div>
-    <!-- Map BG -->
+    <div class="start_pos" style="width:100%; height: 100%;"></div>
+    <div class="goal_pos" style="width:100%; height: 100%;"></div>
+    <img class="cheer" src="./img/cheer.png" width="100%" height="390px" />
+
+    <!-- Modal for gameover (who's winner) -->
+    <div
+      class="wrap_winner"
+      id="wrap_winner"
+      style="width:100%; height: 100%;"
+      onclick="restart()"
+    >
+      <img
+        id="winner"
+        class="winner"
+        src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+        width="700px"
+        height="700px"
+      />
+    </div>
+    <!-- Modal for count starting game  -->
+    <div class="counting" id="counting" style="width:100%; height: 100%;">
+      <img
+        id="countingImg"
+        src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+        width="700px"
+        height="700px"
+      />
+    </div>
+    <!-- btn-start-game -->
+    <div class="wrap_btn_start" style="width:100%; height: 100%;">
+      <img
+        src="./img/btn_start.png"
+        id="btn_start"
+        class="btn_start"
+        width="400px"
+        height="420px"
+        onclick="rdStartGame()"
+      />
+    </div>
+
+    <!-- Map Background -->
     <div class="slides-box">
       <div class="image">
-        <img id="img" src="./img/m1.png" class="animated tada" />
+        <img id="img" src="./img/header.png" class="animated tada" />
       </div>
       <a class="prev" onclick="prevImage()">&#10094;</a>
       <a class="next" onclick="nextImage()">&#10095;</a>
     </div>
     <br />
-    <!-- Car => Player -->
 
-    <img
-      id="playerI"
-      class="animated rubberBand"
-      src="img/c1.png"
-      width="150px"
-      height="150px"
-      onclick="nextImageCarI()"
-    />
+    <!-- Car => Player -->
+    <!-- Player 1 -->
+    <span id="wrap_player_car_i" style="position:absolute;left:-120px;">
+      <img
+        id="smoke_i"
+        class="smoke_i"
+        src="img/ani_iii.png"
+        width="120px"
+        height="150px"
+      />
+      <img
+        id="playerI"
+        class="playerI animated rubberBand"
+        src="img/c1.png"
+        width="150px"
+        height="150px"
+        onclick="nextImageCarI()"
+      />
+    </span>
+
     <div style="padding-top:0px;"></div>
-    <img
-      id="playerII"
-      class="animated rubberBand"
-      src="img/c2.png"
-      width="150px"
-      height="150px"
-      onclick="nextImageCarII()"
-    />
+    <!-- Player 2 -->
+    <span
+      id="wrap_player_car_ii"
+      style="position:absolute;left:-120px;top:550px;"
+    >
+      <img
+        id="smoke_ii"
+        class="smoke_ii"
+        src="img/ani_ii.png"
+        width="120px"
+        height="150px"
+      />
+      <img
+        id="playerII"
+        class="playerII animated rubberBand"
+        src="img/c2.png"
+        width="150px"
+        height="150px"
+        onclick="nextImageCarII()"
+      />
+    </span>
 
     <!-- Optional JavaScript Pure-->
-    <script src="./bg_selected.js"></script>
-    <script src="./car_player_i.js"></script>
-    <script src="./car_player_ii.js"></script>
+    <script src="./js/bg_selected.js"></script>
+    <script src="./js/car_player_i.js"></script>
+    <script src="./js/car_player_ii.js"></script>
+    <script src="./js/smoke.js"></script>
+
     <!-- Optional JavaScript Import-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- <script
@@ -85,23 +143,59 @@
 
     <script>
       // Initial Value
+      var counting = [
+        "./img/r1.png",
+        "./img/r2.png",
+        "./img/r3.png",
+        "./img/r4.png"
+      ];
+      var smoke_animation_i = [
+        "./img/ani_i.png",
+        "./img/ani_ii.png",
+        "./img/ani_iii.png"
+      ];
+      var smoke_animation_ii = [
+        "./img/ani_iii.png",
+        "./img/ani_i.png",
+        "./img/ani_ii.png"
+      ];
+      var winner = ["./img/wini.png", "./img/winii.png"];
+
       var myCarPlayerI = "#playerI";
       var myCarPlayerII = "#playerII";
+      var smoke_index_i = 0;
+      var smoke_index_ii = 0;
       var analogValueI = 0;
       var analogValueII = 0;
       var isFinishI = false;
       var isFinishII = false;
-      var myGoal = 1440 * (90 / 100);
-      // Setting fomular
+      var myGoal = 1440 * (80 / 100) - 10; // minus 6 for get 150 pixel.
+      // Setting fomular sprinter
       var disvalueI = 100;
       var disvalueII = 112;
       var walkPixel = 1;
 
+      hideElements();
+
+      function hideElements() {
+        $("#counting").hide();
+        $("#wrap_winner").hide();
+        $(".cheer").hide();
+      }
+
+      function restart() {
+        // reload page
+        location.reload();
+      }
+
       let initFindDisValue = () => {
+        // Sampling analog from sensor for find base value
         var meanI = 0;
         var meanII = 0;
         var timeI = 0;
         var timeII = 0;
+
+        // get sampling from sensor.first in 10 time.
         var getDisValueI = setInterval(function() {
           timeI += 1;
           if (timeI == 10) {
@@ -124,13 +218,24 @@
           });
         }, 400);
 
+        // get sampling from sensor.second in 10 time.
         var getDisValueII = setInterval(function() {
           timeII += 1;
-          if (timeII == 10) {
+          // Show counting in sammpling's process.
+          if (timeII <= 2) {
+            document.getElementById("countingImg").src = counting[0];
+          } else if (timeII == 4) {
+            document.getElementById("countingImg").src = counting[1];
+          } else if (timeII == 6) {
+            document.getElementById("countingImg").src = counting[2];
+          } else if (timeII == 8) {
+            document.getElementById("countingImg").src = counting[3];
+          } else if (timeII == 10) {
+            nextImage();
             disvalueII = meanII / 9;
             isFinishII = true;
             console.log("disII", disvalueII, meanII);
-            // START HERE
+            // START HERE !!!!
             playGame();
             clearInterval(getDisValueII);
           }
@@ -148,19 +253,40 @@
         }, 400);
       };
 
+      // Function for playing.
       let playGame = () => {
+        // Show and hide some element.
+        $("#counting").hide();
+        $(".cheer").show();
+        // clock initial (for change smoke animation)
+        var clock_i = 0;
+        var clock_ii = 0;
+        // sprinter for player one
         var sprintPlayerI = setInterval(function() {
+          clock_i += 1;
+          if (clock_i % 2 == 0) {
+            nextSmokeI();
+          }
           $.ajax({
             type: "GET",
             url: `http://localhost:5000/playeri`,
+            // url: `http://localhost:5000/mocksound_test`, // mock API (non-sensor)
             dataType: "text",
             success: function(res) {
+              // Shift Car-one
               analogValueI +=
                 Math.abs(parseInt(res, 10) - disvalueI) / walkPixel;
               console.log("player 1 ", analogValueI, res);
-              $(myCarPlayerI).css("margin-left", Number(analogValueI) + "px");
+              $("#wrap_player_car_i").css(
+                "margin-left",
+                Number(analogValueI) + "px"
+              );
+
+              // Triger for winner
               if (analogValueI >= myGoal) {
-                alert("Player 1 winner.");
+                $("#wrap_winner").show();
+                document.getElementById("winner").src = winner[0];
+                // alert("Player 1 winner.");
               }
             },
             fail: function(res) {
@@ -168,19 +294,30 @@
             }
           });
         }, 800);
-
+        // sprinter for player two
         var sprintPlayerII = setInterval(function() {
+          clock_ii += 1;
+          if (clock_ii % 2 == 0) {
+            nextSmokeII();
+          }
           $.ajax({
             type: "GET",
-            url: `http://localhost:5000/playerii`,
+            // url: `http://localhost:5000/playerii`,
+            url: `http://localhost:5000/mocksound_test`, // mock API (non-sensor)
             dataType: "text",
             success: function(res) {
+              // Shift Car-two
               analogValueII +=
                 Math.abs(parseInt(res, 10) - disvalueII) / walkPixel;
               console.log("player 2 ", analogValueII, res);
-              $(myCarPlayerII).css("margin-left", Number(analogValueII) + "px");
+              $("#wrap_player_car_ii").css(
+                "margin-left",
+                Number(analogValueII) + "px"
+              );
+              // Triger for winner
               if (analogValueII >= myGoal) {
-                alert("Player 2 winner.");
+                $("#wrap_winner").show();
+                document.getElementById("winner").src = winner[1];
               }
             },
             fail: function(res) {
@@ -190,11 +327,14 @@
         }, 800);
       };
 
+      // Event for press button-start-game
       function rdStartGame() {
+        $("#btn_start").hide();
+        $("#counting").show();
         initFindDisValue();
       }
 
-      initFindDisValue();
+      // initFindDisValue();
     </script>
   </body>
 </html>

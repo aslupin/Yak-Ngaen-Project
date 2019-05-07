@@ -1,0 +1,41 @@
+.wrap_btn_start {
+  position: absolute;
+  margin: auto 0;
+  text-align: center;
+  top: 300px;
+  cursor: pointer;
+}
+
+.winner {
+  animation: bounce 1.75s;
+  animation-iteration-count: infinite;
+}
+#playerI:hover,
+#playerII:hover,
+.btn_start:hover {
+  animation: shake_btn 0.5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake_btn {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}

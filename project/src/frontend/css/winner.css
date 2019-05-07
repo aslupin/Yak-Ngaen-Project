@@ -1,0 +1,9 @@
+.wrap_winner {
+  position: absolute;
+  margin: auto 0;
+  text-align: center;
+  z-index: 5;
+}
+.wrap_winner:hover {
+  cursor: pointer;
+}

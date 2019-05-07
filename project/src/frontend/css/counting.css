@@ -1,0 +1,6 @@
+.counting {
+  position: absolute;
+  margin: auto 0;
+  text-align: center;
+  z-index: 6;
+}

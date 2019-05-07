@@ -67,6 +67,7 @@ class PeriBoard:
     def __init__(self, mcu):
         self.mcu = mcu
     ################################
+    
     def get_sound_playeri(self):
         sound = self.mcu.usb_read(request=RQ_GET_SOUND_PLAYER_I, length=2)
         return sound[0]

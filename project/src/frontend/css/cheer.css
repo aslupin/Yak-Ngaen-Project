@@ -1,0 +1,10 @@
+.wrap_cheer {
+  margin: 0 auto;
+  text-align: center;
+}
+.cheer {
+  z-index: 2;
+  position: absolute;
+  animation: bounce 0.5s;
+  animation-iteration-count: infinite;
+}

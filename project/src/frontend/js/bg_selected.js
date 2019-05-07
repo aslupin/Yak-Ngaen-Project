@@ -1,5 +1,5 @@
 var imgBox = ["./img/m1.png", "./img/m2.png", "./img/m3.png"];
-var indexInterval = 0;
+var indexInterval = -1; // 0 for init with first map , -1 for init with header
 var indexPrevState = -1;
 
 // init some element follow number of image.

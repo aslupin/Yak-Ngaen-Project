@@ -1,0 +1,30 @@
+.bg {
+  position: absolute;
+  z-index: -3;
+  background-image: url("../img/bg.png");
+  background-size: 100% 100%;
+  background-position: top center;
+  opacity: 0.09;
+}
+.start_pos {
+  position: absolute;
+  z-index: -2;
+  background-image: url("../img/start.png");
+  background-repeat: no-repeat;
+  background-size: 200px 360px;
+  background-position: bottom left;
+  /* opacity: 0.09; */
+}
+.goal_pos {
+  position: absolute;
+  z-index: -3;
+  background-image: url("../img/goal.png");
+  background-repeat: no-repeat;
+  background-size: 150px 360px;
+  background-position: bottom right;
+  /* opacity: 0.09; */
+}
+/* .wrap_cheer{
+  position: absolute;
+  right: 
+} */
