@@ -5,12 +5,16 @@
 ## Prerequisites
 
 - Desktop (Responsive 1440 x 900)
+- ATmega328P
+- objdev
+- CrossPack-AVR (release by Objective Development)
 - libusb
 - python3.7
+- jquery
 
 ## Built With
 
-- React
+- MakeFile
 - Flask
 
 ## Installation
