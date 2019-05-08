@@ -68,23 +68,18 @@ class PeriBoard:
         self.mcu = mcu
     ################################
     
-    def get_sound_playeri(self):
-        sound = self.mcu.usb_read(request=RQ_GET_SOUND_PLAYER_I, length=2)
-        return sound[0]
+    # def get_sound_playeri(self):
+    #     sound = self.mcu.usb_read(request=RQ_GET_SOUND_PLAYER_I, length=2)
+    #     return sound[0]
         
-    def get_sound_playerii(self):
-        sound = self.mcu.usb_read(request=RQ_GET_SOUND_PLAYER_II, length=2)
-        return sound[0]
+    # def get_sound_playerii(self):
+    #     sound = self.mcu.usb_read(request=RQ_GET_SOUND_PLAYER_II, length=2)
+    #     return sound[0]
 
     def get_sound(self, player):
         '''
         Return the current reading of light sensor on peripheral board
         '''
-        # sound = self.mcu.usb_read(request=RQ_GET_SOUND_PLAYER_I, length=2)
-        # return sound
-        # return (sound[1] * 256 ) + sound[0]
-
-
         if(player == RQ_GET_SOUND_PLAYER_I):
             sound = self.mcu.usb_read(request=RQ_GET_SOUND_PLAYER_I, length=2)
             return sound[0]

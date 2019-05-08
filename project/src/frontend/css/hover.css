@@ -10,6 +10,12 @@
   animation: bounce 1.75s;
   animation-iteration-count: infinite;
 }
+#playerI,
+#playerII {
+  animation: pulse 0.5s;
+  animation-iteration-count: infinite;
+}
+
 #playerI:hover,
 #playerII:hover,
 .btn_start:hover {
