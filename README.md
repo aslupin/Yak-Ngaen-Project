@@ -42,7 +42,7 @@ cd /practicum_project/project/src/firmware
 make flash
 ```
 
-### Host/Backend (Localhost)
+### Python - Host/Backend (Localhost)
 
 ```bash
 cd /practicum_project/project/src/python
