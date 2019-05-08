@@ -22,9 +22,6 @@ print("*** Product: %s" % \
         mcu.handle.getString(mcu.device.iProduct, 256))
 peri = PeriBoard(mcu)
 
-@app.route("/mocksound_test")
-def send_test():
-    return 10
 
 @app.route("/playeri")
 def playerI():
