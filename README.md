@@ -2,6 +2,8 @@
 
 โปรเจคนี้เป็นส่วนหนึ่งของรายวิชาปฏิบัติการเก่ียวกับวิศวกรรมคอมพิวเตอร์ (01204223) หรือวิชา Practicum มหาวิทยาลัยเกษตรสาสตร์ บางเขน เพื่อเป็นการนำความรู้ที่เรียนในห้องมาประยุกต์ใช้เป็นชิ้นงาน
 
+[Github](https://github.com/aslupin/practicum_project) - Repository Project
+
 ## Prerequisites
 
 - Desktop (Responsive 1440 x 900)
