@@ -22,7 +22,7 @@ git clone https://github.com/aslupin/practicum_project.git
 cd practicum_project
 ```
 
-## Run
+## Run and Build
 
 ### Frontend
 
